@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "serve": "set NODE_ENV=local && vue-cli-service serve",
+    "build": "vue-cli-service build",
     "build_dev": "set NODE_ENV=dev && vue-cli-service build",
     "build_test": "set NODE_ENV=test && vue-cli-service build",
-    "build_pro": "set NODE_ENV=pro && vue-cli-service build"
+    "build_pro": "set NODE_ENV=production && vue-cli-service build"
   },
   "dependencies": {
     "autoprefixer": "^9.5.1",

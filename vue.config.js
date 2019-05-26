@@ -13,69 +13,74 @@ module.exports = {
     assetsDir: 'static',                    // img css js 资源名，相对于outputDir
     indexPath: 'index.html',                // 输出文件名，相对于outputDir
     filenameHashing: true,                    // 文件名hash
-    productionSourceMap: true,                // 有map 代码加密，报错无法得知错误行数
+    productionSourceMap: false,                // 有map 代码加密，报错无法得知错误行数
     devServer: {
         port: 8080,                           // devServer 相关设置
         // proxy: 'http://localhost:4000'
     },
+    transpileDependencies: [],
     chainWebpack: (config) => {
-        // 修复HMR
-        // config.resolve.symlinks(true);
-
-        // 添加别名 
-        // config.resolve.alias
-        //     .set('@', resolve('src'))
-        //     .set('assets', resolve('src/assets'))
-        //     .set('components', resolve('src/components'))
-        //     .set('@store', resolve('src/store'))
-
-
-        if(process.env.NODE_ENV == 'pro') {
-
-            // 代码丑化压缩
-            new UglifyJsPlugin({
-                uglifyOptions: {
-                    compress: {
-                        warnings: true,
-                        drop_console: true,
-                        drop_debugger: true,
-                        pure_funcs: ['console.log'] //移除console
-                    },
-                    mangle: false,
-                    output: {
-                        beautify: true,//压缩注释
-                    }
-                },
-                sourceMap: false,
-                parallel: true,
-            })
-        }
-
-        // 压缩图片 
-        // config.module
-        //     .rule("images")
-        //     .use("image-webpack-loader")
-        //     .loader("image-webpack-loader")
-        //     .options({   // 该配置来自 https://www.npmjs.com/package/image-webpack-loader#libpng-issues
-        //         mozjpeg: {   // png压缩
-        //             progressive: true, 
-        //             quality: 65    // 图片质量  0-100
-        //         },
-        //         optipng: {enabled: false},  // png压缩
-        //         pngquant: {quality: "65-90", speed: 4},  // png压缩
-        //         gifsicle: {interlaced: false},  // gif压缩
-        //         webp: {quality: 75}   // 压缩JPG和PNG图像到WEBP
-        //     });
-    },
-    configureWebpack: (config) => {
-        if(process.env.NODE_ENV == 'pro') {
-            // 打包分析
+        // 打包分析
+        if (process.env.NODE_ENV == 'production') {
             config.plugin('webpack-report')
                 .use(BundleAnalyzerPlugin, [{
                     analyzerMode: 'static',
                 }]);
         }
+
+        // 修复HMR
+        config.resolve.symlinks(true);
+
+        // 添加别名 
+        config.resolve.alias
+            .set('@', resolve('src'))
+            .set('assets', resolve('src/assets'))
+            .set('components', resolve('src/components'))
+            .set('@store', resolve('src/store'));
+
+        // 压缩图片 
+        config.module
+            .rule("images")
+            .use("image-webpack-loader")
+            .loader("image-webpack-loader")
+            .options({   // 该配置来自 https://www.npmjs.com/package/image-webpack-loader#libpng-issues
+                mozjpeg: {   // png压缩
+                    progressive: true, 
+                    quality: 65    // 图片质量  0-100
+                },
+                optipng: {enabled: false},  // png压缩
+                pngquant: {quality: "65-90", speed: 4},  // png压缩
+                gifsicle: {interlaced: false},  // gif压缩
+                webp: {quality: 75}   // 压缩JPG和PNG图像到WEBP
+            });
+    },
+    configureWebpack: (config) => {
         
+
+        if(process.env.NODE_ENV == 'production') {
+            // 代码丑化压缩
+            config.plugins = config.plugins.concat(
+                [
+                    new UglifyJsPlugin({
+                        uglifyOptions: {
+                            compress: {
+                                // warnings: false, // 加上这句，编译提示 `warnings` is not a supported option
+                                drop_console: true,
+                                drop_debugger: true,
+                                pure_funcs: ['console.log'] //移除console
+                            },
+                            mangle: false,
+                            output: {
+                                beautify: true,//压缩注释
+                            }
+                        },
+                        sourceMap: false,
+                        parallel: true,
+                    })
+
+                ]
+            )
+        }
     },
     css: {
         extract: true, // 将组件内的 CSS 提取到一个单独的 CSS 文件 (只用在生产环境中)
@@ -83,7 +88,7 @@ module.exports = {
         loaderOptions: {
             css: {
                 modules: true,
-                extract: process.env.NODE_ENV == 'pro',
+                // extract: process.env.NODE_ENV == 'production', // css提供这个属性，但是被外层同名属性覆盖。
                 sourceMap: false,
                 loaderOptions: {
                   sass: {
