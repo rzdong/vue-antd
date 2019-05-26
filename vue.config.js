@@ -83,25 +83,21 @@ module.exports = {
         }
     },
     css: {
-        extract: true, // 将组件内的 CSS 提取到一个单独的 CSS 文件 (只用在生产环境中)
+        modules: false, // 默认且建议为false。一个已知的问题是：改为true后，引入的ant-design.css样式被打包后自动加了前后缀无法使用
+        extract: false, // 将组件内的 CSS 提取到一个单独的 CSS 文件 (只用在生产环境中)
         sourceMap: false,  // 是否开启 CSS source map？
         loaderOptions: {
             css: {
-                modules: true,
-                // extract: process.env.NODE_ENV == 'production', // css提供这个属性，但是被外层同名属性覆盖。
-                sourceMap: false,
-                loaderOptions: {
-                  sass: {
-                    // 向全局sass样式传入共享的全局变量
-                    // data: `@import "~assets/scss/variables.scss";$src: "${process.env.VUE_APP_SRC}";`
-                  }
-                }
+                
+            },
+            sass: {
+
             },
             postcss: {
                 plugins: [
-                    require('postcss-px2rem')({ 
-                        remUnit: 100 
-                    }), // 换算的基数
+                    // require('postcss-px2rem')({ 
+                    //     remUnit: 100 
+                    // }), // 换算的基数
                     require('autoprefixer')({ 
                         browsers: [   // 转换条件
                             'last 10 Chrome versions', 
