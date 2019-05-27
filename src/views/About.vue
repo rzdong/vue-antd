@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div id="header">
     <h1>This is an about page</h1>
   </div>
 </template>
@@ -14,4 +14,20 @@ export default class About extends Vue {
   }
 }
 </script>
+
+
+<style lang="less" scoped>
+#header {
+  h1 {
+    font-size: 26px;
+    font-weight: bold;
+  }
+  p { font-size: 12px;
+    a { text-decoration: none;
+      &:hover { border-width: 1px }
+    }
+  }
+}
+</style>
+
 

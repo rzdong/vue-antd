@@ -5,7 +5,7 @@
             <router-link to="/about">About</router-link>
         </div>
         <a-button type="primary" class=""><a-icon type="step-backward" />rewqrewq</a-button>
-                <!-- <router-view/> -->
+                <router-view/>
     </div>
 </template>
 <script lang="ts">

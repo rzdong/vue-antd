@@ -84,7 +84,7 @@ module.exports = {
     },
     css: {
         modules: false, // 默认且建议为false。一个已知的问题是：改为true后，引入的ant-design.css样式被打包后自动加了前后缀无法使用
-        extract: false, // 将组件内的 CSS 提取到一个单独的 CSS 文件 (只用在生产环境中)
+        extract: true, // 将组件内的 CSS 提取到一个单独的 CSS 文件 (只用在生产环境中)
         sourceMap: false,  // 是否开启 CSS source map？
         loaderOptions: {
             css: {
