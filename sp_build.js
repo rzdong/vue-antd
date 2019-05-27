@@ -162,7 +162,7 @@ sourceArr.forEach((item, index, arr) => {
         algorithm: options.zipway.algorithm,  
     }, function handleResult(err, result) {
         console.log(`第${index+1}个目录开始 ->`, options.enter, '\n')
-        console.log(options)
+        // console.log(options)
         // If there was an error, throw it
         if (err) {
             throw err;

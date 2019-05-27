@@ -1,5 +1,9 @@
 # vue-antd
 
+vue + vuex + vue-router + typescript + ant-design 
+
+
+
 ## Project setup
 ```
 npm install
@@ -15,15 +19,11 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
+### build sprite
 ```
-npm run test
+npm run build_sp
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
