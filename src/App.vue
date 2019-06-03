@@ -77,8 +77,8 @@ export default class App extends Vue {
             this.defaultSelectedKeys.pop();
             this.defaultSelectedKeys.push('5');
 
-            this.defaultOpenKeys.pop()
-            this.defaultOpenKeys.push('sub2')
+            this.defaultOpenKeys.pop();
+            this.defaultOpenKeys.push('sub2');
         }, 1500);
     }
 }
