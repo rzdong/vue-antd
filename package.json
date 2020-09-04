@@ -30,7 +30,7 @@
     "image-webpack-loader": "^4.6.0",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.13.1",
     "sass-loader": "^7.1.0",
     "typescript": "^3.4.3",
     "uglifyjs-webpack-plugin": "^2.1.3",
